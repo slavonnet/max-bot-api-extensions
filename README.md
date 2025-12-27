@@ -7,8 +7,12 @@
 
 ## Установка
 
-```bash
-npm install @maxhub/max-bot-api-extensions
+у меня лежит в папке проекта эта папка и подключена она как
+```
+import {Bot} from "@maxhub/max-bot-api";
+import {session, SQLiteStore} from "./max-bot-extensions/src/session";
+import {Scenes} from "./max-bot-extensions/src/scenes";
+import {extendContext, ExtendedContext} from "./max-bot-extensions/src/context";
 ```
 
 ## Функционал
