@@ -9,10 +9,60 @@
 
 у меня лежит в папке проекта эта папка и подключена она как
 ```
+// копипсат частей из разных импортов проекта, чтобы было по типам понятно
+
+// Экспорты для совместимости (не используются напрямую, доступны через scene контекст)
+export const enter = (sceneId: string) => (ctx: any) => ctx.scene.enter(sceneId);
+export const leave = () => (ctx: any) => ctx.scene.leave();
+export const reenter = () => (ctx: any) => ctx.scene.reenter();
+
+export interface MySessionData {
+    myTelegramUsername: string;
+    myTelegramFirstName: string;
+    myTelegramLastName: string;
+    tariffRequestCount: number;
+}
+
+export interface MyContext extends ExtendedContext {
+    scene: SceneContextScene<MyContext>;
+    session: MySessionData;
+}
+
+export const scenes = new Scenes.Stage<MyContext>([greeterScene, loginScene, changeTariff], {
+    // ttl: 10,
+});
+```
+
+```
 import {Bot} from "@maxhub/max-bot-api";
 import {session, SQLiteStore} from "./max-bot-extensions/src/session";
 import {Scenes} from "./max-bot-extensions/src/scenes";
 import {extendContext, ExtendedContext} from "./max-bot-extensions/src/context";
+// тут еще импорты. Их содержание указал выше
+
+// Используем сессии с SQLite
+bot.use(session({
+    store: SQLiteStore({filename: "./telegraf-sessions.sqlite"}),
+    defaultSession: () => ({
+        tempState: "",
+        messagesIdToDelete: [],
+        lastUpdate: Date.now(),
+        is_authenticated: false,
+        login: "",
+        password: "",
+        token: "",
+        tariffIndex: 0,
+        tariffsChangeJson: "",
+        myContactNumber: "",
+        tariffRequestCount: 0,
+        myTelegramFirstName: "",
+        myTelegramLastName: "",
+        myTelegramUsername: "",
+        myTelegramID: 0,
+        tariffPromisedRequestCount: 0
+    })
+}));
+
 ```
 
 ## Функционал
