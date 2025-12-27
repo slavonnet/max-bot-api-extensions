@@ -5,10 +5,10 @@
 
 Расширения для библиотеки `@maxhub/max-bot-api`, добавляющие функционал сессий и сцен (scenes) для совместимости с Telegraf.
 
-## Установка
+## Использование
 
 у меня лежит в папке проекта эта папка и подключена она как
-```
+```ts
 // копипсат частей из разных импортов проекта, чтобы было по типам понятно
 
 // Экспорты для совместимости (не используются напрямую, доступны через scene контекст)
@@ -33,7 +33,7 @@ export const scenes = new Scenes.Stage<MyContext>([greeterScene, loginScene, cha
 });
 ```
 
-```
+```ts
 import {Bot} from "@maxhub/max-bot-api";
 import {session, SQLiteStore} from "./max-bot-extensions/src/session";
 import {Scenes} from "./max-bot-extensions/src/scenes";
@@ -61,20 +61,5 @@ bot.use(session({
 - ✅ **Context Adapter**: Расширяет стандартный контекст Max API полями и методами, знакомыми по Telegraf (`ctx.reply`, `ctx.message`, `ctx.chat` и др.).
 - ✅ **Filters**: Поддержка фильтров типа `message('text')`.
 
-## Использование
-
-```typescript
-import { Bot } from '@maxhub/max-bot-api';
-import { session, SQLiteStore } from '@maxhub/max-bot-api-extensions/session';
-import { Scenes } from '@maxhub/max-bot-api-extensions/scenes';
-
-const bot = new Bot(process.env.BOT_TOKEN);
-
-// Использование сессий
-bot.use(session({ store: SQLiteStore({ filename: './sessions.sqlite' }) }));
-
-// Использование сцен
-const stage = new Scenes.Stage([myScene1, myScene2]);
-bot.use(stage.middleware());
 ```
 
