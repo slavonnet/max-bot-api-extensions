@@ -3,7 +3,7 @@
 
 # Max Bot API Extensions
 
-Расширения для библиотеки `@maxhub/max-bot-api`, добавляющие функционал сессий и сцен (scenes) для совместимости с Telegraf.
+Расширения для библиотеки https://github.com/max-messenger/max-bot-api-client-ts, добавляющие функционал сессий и сцен (scenes) для совместимости с Telegraf.
 
 ## Использование
 
