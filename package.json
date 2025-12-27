@@ -1,0 +1,34 @@
+{
+  "name": "@maxhub/max-bot-api-extensions",
+  "version": "1.0.0",
+  "description": "Расширения для @maxhub/max-bot-api: сессии и сцены",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "max",
+    "bot",
+    "api",
+    "sessions",
+    "scenes",
+    "telegraf-compatible"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@maxhub/max-bot-api": "^1.0.0",
+    "better-sqlite3": "^9.5.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "@maxhub/max-bot-api": "^1.0.0"
+  }
+}
+
