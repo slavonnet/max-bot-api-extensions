@@ -44,22 +44,10 @@ import {extendContext, ExtendedContext} from "./max-bot-extensions/src/context";
 bot.use(session({
     store: SQLiteStore({filename: "./telegraf-sessions.sqlite"}),
     defaultSession: () => ({
-        tempState: "",
-        messagesIdToDelete: [],
-        lastUpdate: Date.now(),
-        is_authenticated: false,
-        login: "",
-        password: "",
-        token: "",
-        tariffIndex: 0,
-        tariffsChangeJson: "",
-        myContactNumber: "",
         tariffRequestCount: 0,
         myTelegramFirstName: "",
         myTelegramLastName: "",
         myTelegramUsername: "",
-        myTelegramID: 0,
-        tariffPromisedRequestCount: 0
     })
 }));
 
