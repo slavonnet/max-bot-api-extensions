@@ -4,6 +4,6 @@ export * from './markup';
 export * from './context';
 export * from './types';
 export * from './filters';
-export * from './filters';
-export * from './types';
+export { tgBackPort, SupportTgContext } from './tgBackPort';
+export { tgBackPort as default } from './tgBackPort';
 

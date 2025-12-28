@@ -5,3 +5,5 @@ dist/
 .env
 *.sqlite
 *.sqlite3
+*.js
+**/*.js

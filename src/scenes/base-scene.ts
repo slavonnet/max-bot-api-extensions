@@ -2,6 +2,7 @@ import { SceneHandler } from './types';
 
 export class BaseScene<TContext = any> {
   public id: string;
+  public ttl?: number; // TTL для сцены (как в Telegraf)
   private enterHandler?: SceneHandler<TContext>;
   private leaveHandler?: SceneHandler<TContext>;
   private commandHandlers: Map<string, SceneHandler<TContext>> = new Map();
@@ -11,8 +12,9 @@ export class BaseScene<TContext = any> {
   private messageHandler?: SceneHandler<TContext>;
   private startHandler?: SceneHandler<TContext>;
 
-  constructor(id: string) {
+  constructor(id: string, ttl?: number) {
     this.id = id;
+    this.ttl = ttl;
   }
 
   start(handler: SceneHandler<TContext>) {
@@ -70,31 +72,25 @@ export class BaseScene<TContext = any> {
   }
 
   async handleUpdate(ctx: TContext): Promise<boolean> {
-    console.log('[DEBUG] BaseScene.handleUpdate для сцены:', this.id);
-    
     // СНАЧАЛА проверяем действия (callback queries) - они имеют приоритет
     // Для Max API используем callback.payload из контекста
     const callbackData = (ctx as any).callback?.payload || (ctx as any).callbackQuery?.data;
     if (callbackData) {
-      console.log('[DEBUG] BaseScene: найден callback, payload:', callbackData);
       for (const [pattern, handler] of this.actionHandlers.entries()) {
         if (typeof pattern === 'string') {
           if (callbackData === pattern) {
-            console.log('[DEBUG] BaseScene: найден action handler для:', pattern);
             await Promise.resolve(handler(ctx));
             return true;
           }
         } else if (pattern instanceof RegExp) {
           const match = callbackData.match(pattern);
           if (match) {
-            console.log('[DEBUG] BaseScene: найден action handler (regex) для:', pattern);
             (ctx as any).match = match;
             await Promise.resolve(handler(ctx));
             return true;
           }
         }
       }
-      console.log('[DEBUG] BaseScene: action handler не найден для callback:', callbackData);
     }
 
     // Затем проверяем команду start (специальный случай)
@@ -103,9 +99,7 @@ export class BaseScene<TContext = any> {
       if (startHandler) {
         // Проверяем, является ли это командой start
         const text = (ctx as any).message?.body?.text || (ctx as any).message?.text || '';
-        console.log('[DEBUG] BaseScene: проверка команды start, текст:', text);
         if (text.startsWith('/start')) {
-          console.log('[DEBUG] BaseScene: найдена команда start, вызываем handler');
           await Promise.resolve(startHandler(ctx));
           return true;
         }
@@ -118,21 +112,17 @@ export class BaseScene<TContext = any> {
       const commandMatch = messageText.match(/^\/(\w+)/);
       if (commandMatch) {
         const command = commandMatch[1];
-        console.log('[DEBUG] BaseScene: найдена команда:', command);
         const handler = this.commandHandlers.get(command);
         if (handler) {
-          console.log('[DEBUG] BaseScene: handler найден, вызываем');
           await Promise.resolve(handler(ctx));
           return true;
         } else {
-          console.log('[DEBUG] BaseScene: handler не найден для команды:', command);
         }
       }
     }
 
     // Проверяем текстовые сообщения
     if (messageText && this.textHandler) {
-      console.log('[DEBUG] BaseScene: найден textHandler, вызываем');
       await Promise.resolve(this.textHandler(ctx));
       return true;
     }
@@ -141,7 +131,6 @@ export class BaseScene<TContext = any> {
     for (const { filter, handler } of this.eventHandlers) {
       if (typeof filter === 'function') {
         if (filter(ctx)) {
-          console.log('[DEBUG] BaseScene: фильтр-функция вернул true, вызываем handler');
           await Promise.resolve(handler(ctx));
           return true;
         }
@@ -150,7 +139,6 @@ export class BaseScene<TContext = any> {
 
     // Проверяем общие обработчики сообщений
     if ((ctx as any).message && this.messageHandler) {
-      console.log('[DEBUG] BaseScene: найден messageHandler, вызываем');
       await Promise.resolve(this.messageHandler(ctx));
       return true;
     }
