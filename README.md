@@ -213,9 +213,6 @@ Markup.keyboard([
 
 Создает middleware для расширения контекста методами и полями Telegraf.
 
-**Параметры:**
-- `stage` (опционально) - Stage для работы со сценами
-
 **Пример:**
 ```typescript
 bot.use(tgBackPort.middleware());
