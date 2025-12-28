@@ -19,6 +19,7 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - run: npm ci
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
