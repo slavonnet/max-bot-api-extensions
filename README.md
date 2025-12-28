@@ -56,7 +56,7 @@ bot.use(session({
 
 // Добавляем совместимость с Telegraf (заполняет SupportTgContext и добавляет методы)
 // ВАЖНО: должен быть ДО scenes.middleware(), чтобы telegram был доступен в сценах
-bot.use(tgBackPort.middleware(scenes));
+bot.use(tgBackPort.middleware());
 
 // Используем сцены
 bot.use(scenes.middleware());
