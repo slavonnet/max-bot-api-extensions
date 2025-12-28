@@ -19,7 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@maxhub/max-bot-api": "^1.0.0",
+    "@maxhub/max-bot-api": "^0.2.1",
     "better-sqlite3": "^9.5.0"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "@maxhub/max-bot-api": "^1.0.0"
+    "@maxhub/max-bot-api": "^0.2.1",
   },
   "publishConfig": {
   "registry": "https://npm.pkg.github.com"
