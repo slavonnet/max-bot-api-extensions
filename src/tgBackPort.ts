@@ -60,7 +60,6 @@ export const tgBackPort = {
   // Middleware для добавления поддержки Telegraf API
   // Заполняет SupportTgContext из структуры MAX API
   middleware<TContext extends Context = Context>(
-    stage?: any
   ): (ctx: TgContext<TContext>, next: () => Promise<void>) => Promise<void> {
     return async (ctx: TgContext<TContext>, next: () => Promise<void>) => {
       // Заполняем update_id
