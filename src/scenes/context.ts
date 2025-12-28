@@ -1,4 +1,5 @@
 import { BaseScene } from './base-scene';
+import {Context} from "@maxhub/max-bot-api";
 
 // Интерфейс для данных сцены в сессии
 export interface SceneSessionData {
@@ -22,7 +23,7 @@ export interface SceneContextSceneOptions<D extends SceneSessionData> {
 }
 
 // Интерфейс для SceneContextScene
-export interface SceneContextScene<TContext = any> {
+export interface SceneContextScene<TContext extends Context> {
   enter(sceneId: string, initialState?: object, silent?: boolean): Promise<void>;
   leave(): Promise<void>;
   reenter(): Promise<void>;
@@ -35,7 +36,7 @@ export interface SceneContextScene<TContext = any> {
 
 // Класс для работы со сценами (как в Telegraf)
 export class SceneContextSceneClass<
-  TContext extends { session?: SceneSession<D> },
+  TContext extends Context & { session?: SceneSession<D> },
   D extends SceneSessionData = SceneSessionData,
 > implements SceneContextScene<TContext> {
   private readonly options: SceneContextSceneOptions<D>;
@@ -161,7 +162,7 @@ export class SceneContextSceneClass<
 }
 
 // Функция для создания scene контекста (для обратной совместимости)
-export function createSceneContext<TContext = any>(
+export function createSceneContext<TContext extends Context>(
   ctx: TContext,
   stage: any
 ): SceneContextScene<TContext> {

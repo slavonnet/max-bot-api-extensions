@@ -1,5 +1,4 @@
 import { Context } from '@maxhub/max-bot-api';
-import { SceneContextScene } from './scenes/context';
 import { createReplyMethod, createReplyWithPhotoMethod, createReplyWithMarkdownV2Method, createDeleteMessageMethod, createDeleteMessagesMethod, createLeaveChatMethod, createEditMessageMediaMethod } from './tgBackPort/methods';
 
 // Интерфейс для полей совместимости с Telegraf
@@ -13,8 +12,6 @@ export interface SupportTgContext {
   
   // Расширенные поля для совместимости с Telegraf
   update_id?: number;
-  scene?: SceneContextScene;
-  session?: any;
   chat?: {
     id: number;
     type: 'private' | 'group' | 'supergroup' | 'channel';
