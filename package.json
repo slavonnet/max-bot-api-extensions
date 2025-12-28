@@ -1,5 +1,5 @@
 {
-  "name": "@maxhub/max-bot-api-extensions",
+  "name": "max-bot-api-ts-extensions",
   "version": "1.0.0",
   "description": "Расширения для @maxhub/max-bot-api: сессии и сцены",
   "main": "dist/index.js",
@@ -29,6 +29,9 @@
   },
   "peerDependencies": {
     "@maxhub/max-bot-api": "^1.0.0"
+  },
+  "publishConfig": {
+  "registry": "https://npm.pkg.github.com"
   }
 }
 
