@@ -16,7 +16,7 @@
     "scenes",
     "telegraf-compatible"
   ],
-  "author": "",
+  "author": "Badalyan Vyacheslav",
   "license": "MIT",
   "dependencies": {
     "@maxhub/max-bot-api": "^0.2.1",
@@ -28,7 +28,7 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "@maxhub/max-bot-api": "^0.2.1",
+    "@maxhub/max-bot-api": "^0.2.1"
   },
   "publishConfig": {
   "registry": "https://npm.pkg.github.com"
