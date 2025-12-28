@@ -1,5 +1,5 @@
 {
-  "name": "max-bot-api-ts-extensions",
+  "name": "@slavonnet/max-bot-api-extensions",
   "version": "1.0.0",
   "description": "Расширения для @maxhub/max-bot-api: сессии и сцены",
   "main": "dist/index.js",
@@ -31,7 +31,11 @@
     "@maxhub/max-bot-api": "^0.2.1"
   },
   "publishConfig": {
-  "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/slavonnet/max-bot-api-extensions.git"
   }
 }
 
